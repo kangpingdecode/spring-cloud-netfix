@@ -18,7 +18,8 @@
     <modules>
         <module>spring-cloud-eureka-server-9090</module>
         <module>spring-cloud-config-server-9091</module>
-        <module>spring-cloud-user-service</module>
+        <module>spring-cloud-user-service-8080</module>
+        <module>spring-cloud-order-service-8081</module>
     </modules>
 
     <dependencyManagement>
