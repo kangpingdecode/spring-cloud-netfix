@@ -1,7 +1,6 @@
-package com.kangping.springcloud.order.client;
+package com.kangping.springcloud.order.api;
 
 
-import com.kangping.springcloud.order.api.OrderService;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -16,8 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @ClassName: IOrderService
  * @date 2020/7/6
  */
-@FeignClient("order")
-public interface OrderServiceFeign extends OrderService {
+public interface OrderService {
 
-
+    @GetMapping("/getOrder")
+    String getOrder();
 }
