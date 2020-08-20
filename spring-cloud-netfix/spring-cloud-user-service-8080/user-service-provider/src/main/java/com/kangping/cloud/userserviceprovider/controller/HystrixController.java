@@ -49,7 +49,7 @@ public class HystrixController {
      */
     @HystrixCommand(fallbackMethod = "timeoutFallback", // 降级调用的方法
             commandProperties = {
-                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000"), // 开启熔断
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "3000"), // 开启熔断
             })
     @GetMapping("/hystrix/getOrder2")
     public String getOrder2(Integer num) {

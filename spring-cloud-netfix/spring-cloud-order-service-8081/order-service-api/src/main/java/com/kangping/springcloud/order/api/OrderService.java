@@ -19,4 +19,7 @@ public interface OrderService {
 
     @GetMapping("/getOrder")
     String getOrder();
+
+    @GetMapping("/addOrder")
+    String addOrder();
 }

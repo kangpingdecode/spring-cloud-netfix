@@ -3,7 +3,7 @@ package com.kangping.springcloud.order.client;
 
 import com.kangping.springcloud.order.api.OrderService;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -16,8 +16,21 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @ClassName: IOrderService
  * @date 2020/7/6
  */
-@FeignClient("order")
+@FeignClient(value = "order-service",fallback = OrderServiceFeign.OrderServiceHystrix.class)
+//@FeignClient(value = "order-service")
 public interface OrderServiceFeign extends OrderService {
 
+    @Component
+    class OrderServiceHystrix implements OrderServiceFeign{
 
+        @Override
+        public String getOrder() {
+            return "openfeign降级了---getOrder";
+        }
+
+        @Override
+        public String addOrder() {
+            return "openfeign降级了---addOrder";
+        }
+    }
 }
