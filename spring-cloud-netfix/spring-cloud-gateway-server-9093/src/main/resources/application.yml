@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: spring-cloud-gateway-server
+  cloud:
+    gateway:
+      routes:
+        - id: path_route
+          uri: lb://user-service
+          predicates:
+            - Path=/gateway/**
+            - Auth=authkey,authValue
+          filters:
+            - StripPrefix=1
+            - Custom=kangping
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+server:
+  port: 9093
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9090/eureka
+
+
+
