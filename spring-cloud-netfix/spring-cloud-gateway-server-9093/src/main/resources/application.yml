@@ -1,6 +1,9 @@
 spring:
   application:
     name: spring-cloud-gateway-server
+  redis:
+    port: 6379
+    host: localhost
   cloud:
     gateway:
       routes:
@@ -8,14 +11,27 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/gateway/**
-            - Auth=authkey,authValue
+            - Auth=authkey,authValue # 自定义predicate断言 AuthRoutePredicateFactory
+          filters:
+            - StripPrefix=1  # 1 表示跳过/gateway
+            - Custom=kangping  # 自定义过滤器 CustomGatewayFilterFactory
+        - id: requestratelimiter_route
+          predicates:
+            - Path=/limit/**
+          uri: lb://user-service
           filters:
             - StripPrefix=1
-            - Custom=kangping
+            - name: RequestRateLimiter
+              args:
+                key-resolver: "#{@urlKeyResolver}"
+                redis-rate-limiter.replenishRate: 10 # 每天生成的token 数
+                redis-rate-limiter.burstCapacity: 20 # 桶的总容量
+                redis-rate-limiter.requestedTokens: 1
       discovery:
         locator:
-          enabled: true
-          lower-case-service-id: true
+          enabled: true #打开解析器 解析lb://
+          lower-case-service-id: true # 以小写匹配
+
 
 server:
   port: 9093
@@ -25,4 +41,12 @@ eureka:
       defaultZone: http://localhost:9090/eureka
 
 
+management:
+  endpoint:
+    gateway:
+      enabled: true #打开gateway的端点支持
+  endpoints:
+    web:
+      exposure:
+        include: gateway # 打开gateway路由信息端点
 

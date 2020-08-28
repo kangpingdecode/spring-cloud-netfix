@@ -21,20 +21,20 @@ import org.springframework.web.bind.annotation.RestController;;
 public class OrderServiceImpl implements OrderService {
 
     public String getOrder() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return "RETURN getOrder";
     }
 
     public String addOrder() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return "RETURN addOrder";
     }
 
