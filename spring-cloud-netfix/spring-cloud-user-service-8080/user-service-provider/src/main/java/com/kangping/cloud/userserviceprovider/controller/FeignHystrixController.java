@@ -24,7 +24,8 @@ public class FeignHystrixController {
 
     @GetMapping("/hystrix/feign/getOrder")
     public String getOrder(Integer num) {
-        return orderServiceFeign.getOrder();
+        throw new RuntimeException("123213");
+        //return orderServiceFeign.getOrder();
     }
 
     @GetMapping("/hystrix/feign/addOrder")

@@ -31,6 +31,12 @@ spring:
         locator:
           enabled: true #打开解析器 解析lb://
           lower-case-service-id: true # 以小写匹配
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://119.45.158.105:9411
+
 
 
 server:
@@ -39,6 +45,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:9090/eureka
+
 
 
 management:
